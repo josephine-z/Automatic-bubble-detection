@@ -1,2 +1,5 @@
-# Automatic-bubble-detection
-Automatic bubble detection and identification using image moments
+# Automatic bubble detection
+This code automatically detects and identifies bubbles in a noisy image using image moments.
+
+Below is an example image of a bubble in a stream of water. The two red circles clearly identify the outline of the bubble.
+![alt text](bubble.png "Bubble in water")
