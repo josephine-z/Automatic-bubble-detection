@@ -6,5 +6,5 @@ The image on the left is of a bubble in a stream of water. The image on the righ
 <img src="bubble.jpg" alt="Bubble in water" width="400"/> <img src="bubble.jpg" alt="Identified bubble in water" width="400"/>
 
 
-### Todo
+## Todo
 - apply noise filtering by removing frequencies above a certain threshold
