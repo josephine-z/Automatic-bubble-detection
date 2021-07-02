@@ -1,11 +1,12 @@
 clear all; close all; clc; clear memory;
 
 
-%% INVARIANT MOMENT EQUAITONS
-xcg=    @(I,xg,yg)      sum(xg(:).*I(:))./sum(I(:));
+%% INVARIANT MOMENT EQUAITONS 不变矩方程
+xcg=    @(I,xg,yg)      sum(xg(:).*I(:))./sum(I(:));  %% @函数柄；sum(xg(:).*I(:))./sum(I(:)) 矩阵运算
 ycg=    @(I,xg,yg)      sum(yg(:).*I(:))./sum(I(:));
 mu=     @(I,p,q,xg,yg)  sum(((xg(:)-xcg(I,xg,yg)).^p).*((yg(:)-ycg(I,xg,yg)).^q).*I(:));
 n=      @(I,p,q,xg,yg)	mu(I,p,q,xg,yg)./(mu(I,0,0,xg,yg).^(1+0.5*(p+q)));
+%% 计算图像的七个不变矩 理论参考：https://blog.csdn.net/qq_18343569/article/details/46913501
 M1=     @(BW,xg,yg)     n(BW,2,0,xg,yg)+n(BW,0,2,xg,yg);
 M2=     @(BW,xg,yg)     (n(BW,2,0,xg,yg)-n(BW,0,2,xg,yg)).^2 + 4*n(BW,1,1,xg,yg).^2;
 M3=     @(BW,xg,yg)     (n(BW,3,0,xg,yg)-3*n(BW,1,2,xg,yg)).^2 + (3*n(BW,2,1,xg,yg)-n(BW,0,3,xg,yg)).^2;
@@ -15,7 +16,7 @@ M6=     @(BW,xg,yg)     (n(BW,2,0,xg,yg)-n(BW,0,2,xg,yg)).*((n(BW,3,0,xg,yg)+n(B
 M7=     @(BW,xg,yg)     (3*n(BW,2,1,xg,yg)-n(BW,0,3,xg,yg)).*(n(BW,3,0,xg,yg)+n(BW,1,2,xg,yg)).*((n(BW,3,0,xg,yg)+n(BW,1,2,xg,yg)).^2-3*(n(BW,2,1,xg,yg)+n(BW,0,3,xg,yg)).^2) +(3*n(BW,1,2,xg,yg)-n(BW,3,0,xg,yg)).*(n(BW,2,1,xg,yg)+n(BW,0,3,xg,yg)).*(3*(n(BW,1,2,xg,yg)+n(BW,3,0,xg,yg)).^2-(n(BW,2,1,xg,yg)+n(BW,0,3,xg,yg)).^2);
 
 
-%% MAKE A CIRCLE & PERFORM IMAGE MOMENTS
+%% MAKE A CIRCLE & PERFORM IMAGE MOMENTS 做一个圆圈并表演图像时刻
 numpix=255;                                     %image size
 numpix=1+2*floor(numpix/2);                     %make sure numpix is odd
 Im=zeros(numpix,numpix);                        %initialise image
